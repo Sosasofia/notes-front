@@ -1,45 +1,53 @@
 module.exports = {
-  "env": {
-    "browser": false,
-    "es2021": true,
-    "node": true
+  env: {
+    browser: false,
+    es2021: true,
+    node: true,
   },
-  "extends": [
+  extends: [
     "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "eslint:recommended",
   ],
-  "plugins": ["react", "prettier", "import"],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
+  plugins: ["react", "prettier", "import"],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
     },
-    "ecmaVersion": 12,
-    "sourceType": "module"
+    ecmaVersion: 12,
+    sourceType: "module",
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
-  "rules": {
+  rules: {
     //"no-console": "warn",
+    "no-undef": "warn",
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "semi": [2, "always"],
     "no-unused-vars": [
       "warn",
       {
-        "args": "after-used",
-        "ignoreRestSiblings": false,
-        "argsIgnorePattern": "^_.*?$"
-      }
+        args: "after-used",
+        ignoreRestSiblings: false,
+        argsIgnorePattern: "^_.*?$",
+      },
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        singleQuote: false,
+        semi: true,
+      },
     ],
     "import/order": [
       "warn",
       {
-        "groups": [
+        groups: [
           "type",
           "builtin",
           "object",
@@ -47,37 +55,36 @@ module.exports = {
           "internal",
           "parent",
           "sibling",
-          "index"
+          "index",
         ],
-        "pathGroups": [
+        pathGroups: [
           {
-            "pattern": "~/**",
-            "group": "external",
-            "position": "after"
-          }
+            pattern: "~/**",
+            group: "external",
+            position: "after",
+          },
         ],
-        "newlines-between": "always"
-      }
+      },
     ],
     "react/self-closing-comp": "warn",
     "react/jsx-sort-props": [
       "warn",
       {
-        "callbacksLast": true,
-        "shorthandFirst": true,
-        "noSortAlphabetically": false,
-        "reservedFirst": true
-      }
+        callbacksLast: true,
+        shorthandFirst: true,
+        noSortAlphabetically: false,
+        reservedFirst: true,
+      },
     ],
-    "padding-line-between-statements": [
-      "warn",
-      { "blankLine": "always", "prev": "*", "next": "return" },
-      { "blankLine": "always", "prev": ["const", "let", "var"], "next": "*" },
-      {
-        "blankLine": "any",
-        "prev": ["const", "let", "var"],
-        "next": ["const", "let", "var"]
-      }
-    ]
-  }
-}
+    // "padding-line-between-statements": [
+    //   "warn",
+    //   { blankLine: "always", prev: "*", next: "return" },
+    //   { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
+    //   {
+    //     blankLine: "any",
+    //     prev: ["const", "let", "var"],
+    //     next: ["const", "let", "var"]
+    //   }
+    // ]
+  },
+};

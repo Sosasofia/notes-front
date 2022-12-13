@@ -1,27 +1,27 @@
 module.exports = {
   env: {
-    browser: false,
+    browser: true,
     es2021: true,
-    node: true,
+    node: true
   },
   extends: [
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
-    "eslint:recommended",
+    "eslint:recommended"
   ],
   plugins: ["react", "prettier", "import"],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true,
+      jsx: true
     },
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: "module"
   },
   settings: {
     react: {
-      version: "detect",
-    },
+      version: "detect"
+    }
   },
   rules: {
     //"no-console": "warn",
@@ -34,37 +34,28 @@ module.exports = {
       {
         args: "after-used",
         ignoreRestSiblings: false,
-        argsIgnorePattern: "^_.*?$",
-      },
+        argsIgnorePattern: "^_.*?$"
+      }
     ],
     "prettier/prettier": [
       "warn",
       {
         singleQuote: false,
-        semi: true,
-      },
+        semi: true
+      }
     ],
     "import/order": [
       "warn",
       {
-        groups: [
-          "type",
-          "builtin",
-          "object",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-        ],
+        groups: ["type", "builtin", "object", "external", "internal", "parent", "sibling", "index"],
         pathGroups: [
           {
             pattern: "~/**",
             group: "external",
-            position: "after",
-          },
-        ],
-      },
+            position: "after"
+          }
+        ]
+      }
     ],
     "react/self-closing-comp": "warn",
     "react/jsx-sort-props": [
@@ -73,9 +64,9 @@ module.exports = {
         callbacksLast: true,
         shorthandFirst: true,
         noSortAlphabetically: false,
-        reservedFirst: true,
-      },
-    ],
+        reservedFirst: true
+      }
+    ]
     // "padding-line-between-statements": [
     //   "warn",
     //   { blankLine: "always", prev: "*", next: "return" },
@@ -86,5 +77,5 @@ module.exports = {
     //     next: ["const", "let", "var"]
     //   }
     // ]
-  },
+  }
 };

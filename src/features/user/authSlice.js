@@ -1,50 +1,46 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import loginService from "../../services/login";
-import { saveToLocalStorage } from "./userSlice";
+import userService from "../../services/user";
+
+const user = userService.getUser();
 
 export const loginUser = createAsyncThunk(
-  "login/user",
-  async (credentials, { rejectWithValue, fulfillWithValue }) => {
+  "auth/login",
+  async (credentials, { rejectWithValue }) => {
     try {
       const res = await loginService.login(credentials);
       const data = res.data;
-
-      if (res.status === 200) {
-        saveToLocalStorage(data);
-        return fulfillWithValue(data);
-      } else {
-        return rejectWithValue(res.status);
-      }
+      userService.setUser(data);
+      return data;
     } catch (e) {
       return rejectWithValue(e.response.data);
     }
   }
 );
 
-const loginSlice = createSlice({
+const initialState = user
+  ? { isLoggedIn: true, user, loading: false }
+  : { isLoggedIn: false, user: null, loading: false };
+
+const authSlice = createSlice({
   name: "login",
-  initialState: {
-    user: null,
-    loading: false,
-    success: false,
-    error: null
-  },
+  initialState,
   reducers: {},
   extraReducers: {
     [loginUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
-      state.success = true;
-      state.user = payload;
+      state.isLoggedIn = true;
+      state.currentUser = payload;
     },
     [loginUser.pending]: (state) => {
       state.loading = true;
     },
     [loginUser.rejected]: (state, { payload }) => {
       state.loading = false;
-      state.success = false;
+      state.isLoggedIn = false;
       state.error = payload.error;
     }
   }
 });
 
-export default loginSlice.reducer;
+export default authSlice.reducer;

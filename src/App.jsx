@@ -9,16 +9,16 @@ import Home from "./pages/Home";
 
 function App() {
   const theme = useSelector((state) => state.theme);
-  const { currentUser } = useSelector((state) => state.login);
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
 
   return (
     <div className={`h-screen w-screen static ${theme.darkMode && "dark"}`}>
       <Header />
 
       <Routes>
-        <Route element={currentUser ? <Navigate replace to="/home" /> : <Landing />} path="/" />
+        <Route element={isLoggedIn ? <Navigate replace to="/home" /> : <Landing />} path="/" />
         <Route element={<LoginForm />} path="/login" />
-        <Route element={<ProtectedRoutes user={currentUser} />}>
+        <Route element={<ProtectedRoutes user={user} />}>
           <Route element={<Home />} path="/home" />
           <Route element={<Notes />} path="/notes" />
         </Route>

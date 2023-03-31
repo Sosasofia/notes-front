@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../../components/Spinner";
 import { fetchNotes } from "./notesSlice";
 import Note from "./Note";
 
@@ -11,7 +12,7 @@ export default function Notes() {
     dispatch(fetchNotes());
   }, [dispatch]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner />;
 
   return (
     <div className="w-full max-w-3xl space-y-3.5">

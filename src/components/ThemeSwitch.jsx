@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
-import { toggleTheme } from "../features/themeSlice";
+import { asyncToggleTheme } from "../features/themeSlice";
 
 export default function ThemeSwitch() {
   const theme = useSelector((state) => state.theme);
@@ -8,7 +8,7 @@ export default function ThemeSwitch() {
 
   return (
     <div>
-      <button type="text" onClick={() => dispatch(toggleTheme())}>
+      <button type="text" onClick={() => dispatch(asyncToggleTheme())}>
         {theme.darkMode ? (
           <MoonIcon className="h-8 w-8 text-gray-100" />
         ) : (

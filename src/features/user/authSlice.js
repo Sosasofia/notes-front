@@ -1,18 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import loginService from "../../services/login";
 import userService from "../../services/user";
+import { setNotification } from "../notification/notificationSlice";
 
 const user = userService.getUser();
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (credentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue, dispatch }) => {
     try {
       const res = await loginService.login(credentials);
       const data = res.data;
       userService.setUser(data);
+      dispatch(setNotification("Login successful", true, "success", 2));
       return data;
     } catch (e) {
+      dispatch(setNotification(`${e.response.data.error}`, true, "error"));
       return rejectWithValue(e.response.data);
     }
   }

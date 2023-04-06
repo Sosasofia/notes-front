@@ -1,17 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import noteService from "../../services/notes";
 import userService from "../../services/user";
+import { setNotification } from "../notification/notificationSlice";
 
 const user = userService.getUser();
 
-export const fetchNotes = createAsyncThunk("notes/fetchNotes", async (arg, { rejectWithValue }) => {
+export const fetchNotes = createAsyncThunk("notes/fetchNotes", async (arg, { dispatch }) => {
   try {
     noteService.setToken(user.token);
     const res = await noteService.getAll();
 
     return res.data;
   } catch (e) {
-    return rejectWithValue(e);
+    dispatch(setNotification(`${e.response.data.error}`, true, "error"));
   }
 });
 
@@ -21,8 +22,9 @@ export const createNote = (noteObject) => {
       noteService.setToken(user.token);
       const returnedNote = await noteService.create(noteObject);
       dispatch(appendNote(returnedNote));
-    } catch (error) {
-      console.log("Error", error);
+      dispatch(setNotification("Note created", true, "success"));
+    } catch (e) {
+      dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
   };
 };
@@ -33,8 +35,9 @@ export const deleteNote = (noteObject) => {
       noteService.setToken(user.token);
       await noteService.remove(noteObject.id);
       dispatch(removeNote(noteObject));
-    } catch (error) {
-      console.log("Error", error);
+      dispatch(setNotification("Note deleted", true, "success"));
+    } catch (e) {
+      dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
   };
 };
@@ -49,8 +52,9 @@ export const updateNote = (note, id) => {
       };
       const updatedNote = await noteService.update(id, noteToUpdate);
       dispatch(update(updatedNote));
-    } catch (error) {
-      console.log("Error", error);
+      dispatch(setNotification("Note updated", true, "success"));
+    } catch (e) {
+      dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
   };
 };

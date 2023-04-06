@@ -6,15 +6,16 @@ import Notes from "./features/notes/Notes";
 import LoginForm from "./features/user/LoginForm";
 import Landing from "./pages/Landing";
 import Home from "./pages/Home";
+import Notification from "./features/notification/Notification";
 
 function App() {
   const theme = useSelector((state) => state.theme);
   const { isLoggedIn, user } = useSelector((state) => state.auth);
 
   return (
-    <div className={`h-screen w-screen static ${theme.darkMode && "dark"}`}>
+    <div className={`h-screen w-screen static ${theme.darkMode && "dark"} relative`}>
       <Header />
-
+      <Notification />
       <Routes>
         <Route element={isLoggedIn ? <Navigate replace to="/home" /> : <Landing />} path="/" />
         <Route element={<LoginForm />} path="/login" />

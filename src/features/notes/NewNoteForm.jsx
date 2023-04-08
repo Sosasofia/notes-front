@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createNote } from "./notesSlice";
 
-export default function NewNoteForm() {
+export default function NewNoteForm({ toggleShow }) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const dispatch = useDispatch();
@@ -17,6 +17,7 @@ export default function NewNoteForm() {
     dispatch(createNote(noteObject));
     setTitle("");
     setContent("");
+    toggleShow();
   };
 
   return (

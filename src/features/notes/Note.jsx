@@ -47,7 +47,7 @@ export default function Note({ note }) {
         </div>
       </div>
       <Modal handleClose={toggleShow} show={show}>
-        <EditNoteForm note={note} />
+        <EditNoteForm note={note} toggleShow={toggleShow} />
       </Modal>
     </>
   );

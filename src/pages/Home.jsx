@@ -23,7 +23,7 @@ export default function Home() {
         <Notes />
       </div>
       <Modal handleClose={toggleShow} show={show}>
-        <NewNoteForm />
+        <NewNoteForm toggleShow={toggleShow} />
       </Modal>
     </>
   );

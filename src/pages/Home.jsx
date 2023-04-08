@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import Modal from "../components/Modal";
 import NewNoteForm from "../features/notes/NewNoteForm";
 import Notes from "../features/notes/Notes";
@@ -16,7 +16,7 @@ export default function Home() {
           <button
             className="flex-initial bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-center inline-flex items-center"
             onClick={toggleShow}>
-            <FaPlus className="mr-2" />
+            <PlusIcon className="mr-2 h-6 w-6" />
             New
           </button>
         </div>

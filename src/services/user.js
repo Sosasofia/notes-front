@@ -15,6 +15,11 @@ const getUser = () => {
   return null;
 };
 
+const logout = () => {
+  window.localStorage.removeItem("loggedUserInfo");
+  token = null;
+};
+
 const getToken = () => token;
 
-export default { setUser, getUser, getToken };
+export default { setUser, getUser, getToken, logout };

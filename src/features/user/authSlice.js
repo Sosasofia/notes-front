@@ -12,7 +12,7 @@ export const loginUser = createAsyncThunk(
       const res = await loginService.login(credentials);
       const data = res.data;
       userService.setUser(data);
-      dispatch(setNotification("Login successful", true, "success", 2));
+      dispatch(setNotification("Login successful", true, "success", 4));
       return data;
     } catch (e) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
@@ -28,7 +28,12 @@ const initialState = user
 const authSlice = createSlice({
   name: "login",
   initialState,
-  reducers: {},
+  reducers: {
+    removeUser: (state) => {
+      state.isLoggedIn = false;
+      state.user = null;
+    }
+  },
   extraReducers: {
     [loginUser.fulfilled]: (state, { payload }) => {
       state.loading = false;
@@ -45,5 +50,11 @@ const authSlice = createSlice({
     }
   }
 });
+
+export const logout = () => (dispatch) => {
+  userService.logout();
+  dispatch(setNotification("Logout successful", true, "success"));
+  dispatch(authSlice.actions.removeUser());
+};
 
 export default authSlice.reducer;

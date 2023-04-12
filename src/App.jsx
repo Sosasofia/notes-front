@@ -15,7 +15,7 @@ function App() {
   return (
     <div className={`h-screen w-screen static ${theme.darkMode && "dark"} relative`}>
       <Header />
-      <div className="px-5 min-h-screen bg-gray-200 dark:bg-gray-900 pt-20">
+      <div className="h-full px-5 min-h-screen bg-gray-200 dark:bg-gray-900">
         <Notification />
         <Routes>
           <Route element={isLoggedIn ? <Navigate replace to="/home" /> : <Landing />} path="/" />

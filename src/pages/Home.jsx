@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center pt-20">
         <div className="inline-flex justify-between w-full max-w-3xl mb-5">
           <h2 className="text-4xl font-bold dark:text-white">Notes</h2>
           <button

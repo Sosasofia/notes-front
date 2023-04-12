@@ -19,10 +19,23 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async (arg, { dis
 export const createNote = (noteObject) => {
   return async (dispatch) => {
     try {
-      noteService.setToken(user.token);
-      const returnedNote = await noteService.create(noteObject);
-      dispatch(appendNote(returnedNote));
-      dispatch(setNotification("Note created", true, "success"));
+      if (user.username === "test") {
+        const { title, content } = noteObject;
+        dispatch(
+          appendNote({
+            title,
+            content,
+            id: Math.floor(Math.random() * 1000),
+            createdAt: Date.now()
+          })
+        );
+        dispatch(setNotification("Note created", true, "success"));
+        return;
+      } else {
+        noteService.setToken(user.token);
+        const returnedNote = await noteService.create(noteObject);
+        dispatch(appendNote(returnedNote));
+      }
     } catch (e) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
@@ -45,14 +58,19 @@ export const deleteNote = (noteObject) => {
 export const updateNote = (note, id) => {
   return async (dispatch) => {
     try {
-      noteService.setToken(user.token);
-
-      const noteToUpdate = {
-        ...note
-      };
-      const updatedNote = await noteService.update(id, noteToUpdate);
-      dispatch(update(updatedNote));
-      dispatch(setNotification("Note updated", true, "success"));
+      if (user.username === "test") {
+        dispatch(update({ ...note, id }));
+        dispatch(setNotification("Note updated", true, "success"));
+        return;
+      } else {
+        noteService.setToken(user.token);
+        const noteToUpdate = {
+          ...note
+        };
+        const updatedNote = await noteService.update(id, noteToUpdate);
+        dispatch(update(updatedNote));
+        dispatch(setNotification("Note updated", true, "success"));
+      }
     } catch (e) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }

@@ -15,15 +15,17 @@ function App() {
   return (
     <div className={`h-screen w-screen static ${theme.darkMode && "dark"} relative`}>
       <Header />
-      <Notification />
-      <Routes>
-        <Route element={isLoggedIn ? <Navigate replace to="/home" /> : <Landing />} path="/" />
-        <Route element={<LoginForm />} path="/login" />
-        <Route element={<ProtectedRoutes user={user} />}>
-          <Route element={<Home />} path="/home" />
-          <Route element={<Notes />} path="/notes" />
-        </Route>
-      </Routes>
+      <div className="px-5 min-h-screen bg-gray-200 dark:bg-gray-900 pt-20">
+        <Notification />
+        <Routes>
+          <Route element={isLoggedIn ? <Navigate replace to="/home" /> : <Landing />} path="/" />
+          <Route element={<LoginForm />} path="/login" />
+          <Route element={<ProtectedRoutes user={user} />}>
+            <Route element={<Home />} path="/home" />
+            <Route element={<Notes />} path="/notes" />
+          </Route>
+        </Routes>
+      </div>
     </div>
   );
 }

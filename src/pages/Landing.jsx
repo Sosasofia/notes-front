@@ -17,7 +17,7 @@ export default function Landing() {
   });
 
   return (
-    <div className="max-w-2xl space-y-2.5 grid place-content-center h-full mx-auto">
+    <div className="max-w-2xl space-y-2.5 grid place-content-center min-h-screen mx-auto">
       <h1 className="text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
         Notes App
       </h1>

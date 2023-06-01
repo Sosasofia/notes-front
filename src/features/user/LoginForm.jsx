@@ -112,7 +112,7 @@ export default function LoginForm() {
       </section>
       <Modal handleClose={toggleShow} show={show}>
         <a
-          className="block max-w-sm p-6 bg-white rounded-lg dark:bg-gray-800 dark:border-gray-700"
+          className="block max-w-sm p-6 bg-white rounded-lg dark:bg-gray-700 dark:border-gray-700"
           href="#">
           <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
             Enter to the test the app!

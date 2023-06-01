@@ -30,7 +30,7 @@ export default function LoginForm() {
   });
 
   return (
-    <section className="min-h-screen max-w-2xl space-y-2.5 grid place-content-center h-full mx-auto">
+    <section className="w-full min-h-screen grid place-items-center  h-full bg-gray-200 dark:bg-gray-900">
       <form
         className="bg-white space-y-4 px-8 pt-6 pb-8 mb-4 rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700"
         onSubmit={handleLogin}>

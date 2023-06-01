@@ -13,7 +13,8 @@ export default function EditNoteForm({ note, toggleShow }) {
 
     const noteObject = {
       title: newTitle,
-      content: newContent
+      content: newContent,
+      createdAt: Date.now()
     };
     dispatch(updateNote(noteObject, id));
     setTitle("");

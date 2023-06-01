@@ -29,7 +29,9 @@ export default function Note({ note }) {
         </h2>
         <p className="font-normal text-gray-700 dark:text-gray-400">{content}</p>
         <div className="flex justify-between mt-5">
-          <small className="mt-2 text-gray-700 dark:text-gray-400">Created on: {date}</small>
+          <small className="mt-2 text-gray-700 dark:text-gray-400">
+            Last edited: <strong>{date}</strong>
+          </small>
           <div className="inline-flex">
             <button
               className="inline-flex items-center justify-center h-6 w-6 text-gray-700 hover:text-yellow-500 mr-2 transition-colors duration-150 dark:text-gray-400 dark:hover:text-yellow-400"

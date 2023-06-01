@@ -45,10 +45,16 @@ export const createNote = (noteObject) => {
 export const deleteNote = (noteObject) => {
   return async (dispatch) => {
     try {
-      noteService.setToken(user.token);
-      await noteService.remove(noteObject.id);
-      dispatch(removeNote(noteObject));
-      dispatch(setNotification("Note deleted", true, "success"));
+      if (user.username === "test") {
+        dispatch(removeNote(noteObject.id));
+        dispatch(setNotification("Note deleted", true, "success"));
+        return;
+      } else {
+        noteService.setToken(user.token);
+        await noteService.remove(noteObject.id);
+        dispatch(removeNote(noteObject));
+        dispatch(setNotification("Note deleted", true, "success"));
+      }
     } catch (e) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
@@ -94,7 +100,8 @@ export const notesSlice = createSlice({
       );
     },
     removeNote(state, action) {
-      state.notes = state.notes.filter((note) => note.id !== action.payload.id);
+      console.log(action.payload);
+      state.notes = state.notes.filter((note) => note.id !== action.payload);
     }
   },
   extraReducers: {

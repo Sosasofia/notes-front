@@ -23,6 +23,15 @@ export default function Landing() {
       </h1>
       <p className="py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
         Free and easy to use. Keep your notes organized. Its built with React.js & TailwindCSS.
+        Consumes data from a{" "}
+        <a
+          className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
+          href="https://github.com/Sosasofia/notes-api"
+          rel="noreferrer"
+          target="_blank">
+          REST API
+        </a>{" "}
+        previously developed.
       </p>
       <div className="space-x-6">
         <button

@@ -13,7 +13,7 @@ function App() {
   const { isLoggedIn, user } = useSelector((state) => state.auth);
 
   return (
-    <div className={`h-screen w-screen static ${theme.darkMode && "dark"} relative`}>
+    <div className={`h-screen static ${theme.darkMode && "dark"} relative`}>
       <Header />
       <div className="pb-6 px-5 min-h-screen bg-gray-200 dark:bg-gray-900">
         <Notification />

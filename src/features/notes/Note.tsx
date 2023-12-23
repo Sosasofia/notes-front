@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { TrashIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 import Modal from "../../components/Modal";
 import { deleteNote } from "./notesSlice";
 import EditNoteForm from "./EditNoteForm";
+import { useAppDispatch } from "@/app/hooks";
+import { Note as NoteType } from "@/types";
 
-export default function Note({ note }) {
+export default function Note({ note }: { note: NoteType }) {
   const { title, content, createdAt } = note;
-  const date = new Date(createdAt).toLocaleDateString("en-us", {
+  const date = new Date(createdAt ?? "").toLocaleDateString("en-us", {
     day: "numeric",
     year: "numeric",
     month: "short"
@@ -15,7 +16,7 @@ export default function Note({ note }) {
 
   const [show, setShow] = useState(false);
   const toggleShow = () => setShow(!show);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleDelete = () => {
     dispatch(deleteNote(note));

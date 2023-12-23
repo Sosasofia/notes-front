@@ -1,6 +1,8 @@
-let token = null;
+import { User } from "@/types";
 
-const setUser = (user) => {
+let token: string | null = null;
+
+const setUser = (user: User) => {
   window.localStorage.setItem("loggedUserInfo", JSON.stringify(user));
   token = user.token;
 };

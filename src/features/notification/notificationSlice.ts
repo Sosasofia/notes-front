@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch, createSlice } from "@reduxjs/toolkit";
+import { Notification } from "@/types";
 
-const initialState = { message: null, status: false, type: null };
+const initialState: Notification = { message: null, show: false, type: null };
 
 const notificationSlice = createSlice({
   name: "notification",
@@ -8,12 +9,12 @@ const notificationSlice = createSlice({
   reducers: {
     createNotification(state, action) {
       state.message = action.payload.message;
-      state.status = true;
+      state.show = true;
       state.type = action.payload.type;
     },
     clearNotification(state) {
       state.message = null;
-      state.status = false;
+      state.show = false;
       state.type = null;
     }
   }
@@ -23,12 +24,12 @@ export const { createNotification, clearNotification } = notificationSlice.actio
 
 export default notificationSlice.reducer;
 
-export const setNotification = (message, status, type, timeout = 3) => {
-  return async (dispatch) => {
+export const setNotification = (message: string, show: boolean, type: string, timeout = 3) => {
+  return async (dispatch: Dispatch) => {
     dispatch(
       createNotification({
         message,
-        status,
+        show,
         type
       })
     );

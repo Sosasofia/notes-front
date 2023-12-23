@@ -1,9 +1,16 @@
+import React from "react";
 import ReactDom from "react-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "@/app/hooks";
 
-export default function Modal({ show, handleClose, children }) {
-  const theme = useSelector((state) => state.theme);
+type Props = {
+  show: boolean;
+  handleClose: () => void;
+  children: React.ReactNode;
+};
+
+export default function Modal({ show, handleClose, children }: Props) {
+  const theme = useAppSelector((state) => state.theme);
 
   if (!show) return null;
 
@@ -21,6 +28,6 @@ export default function Modal({ show, handleClose, children }) {
         </div>
       </div>
     </div>,
-    document.getElementById("modal")
+    document.getElementById("modal") as HTMLElement
   );
 }

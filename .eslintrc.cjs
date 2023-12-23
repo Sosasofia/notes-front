@@ -8,16 +8,12 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
-  plugins: ["react", "prettier", "import"],
-  parserOptions: {
-    ecmaFeatures: {
-      jsx: true
-    },
-    ecmaVersion: 12,
-    sourceType: "module"
-  },
+  parser: "@typescript-eslint/parser",
+  plugins: ["react", "prettier", "import", "@typescript-eslint"],
+  root: true,
   settings: {
     react: {
       version: "detect"
@@ -25,18 +21,12 @@ module.exports = {
   },
   rules: {
     //"no-console": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
     "no-undef": "warn",
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "no-unused-vars": [
-      "warn",
-      {
-        args: "after-used",
-        ignoreRestSiblings: false,
-        argsIgnorePattern: "^_.*?$"
-      }
-    ],
+    "@typescript-eslint/no-unused-vars": "warn",
     "prettier/prettier": [
       "warn",
       {
@@ -67,15 +57,5 @@ module.exports = {
         reservedFirst: true
       }
     ]
-    // "padding-line-between-statements": [
-    //   "warn",
-    //   { blankLine: "always", prev: "*", next: "return" },
-    //   { blankLine: "always", prev: ["const", "let", "var"], next: "*" },
-    //   {
-    //     blankLine: "any",
-    //     prev: ["const", "let", "var"],
-    //     next: ["const", "let", "var"]
-    //   }
-    // ]
   }
 };

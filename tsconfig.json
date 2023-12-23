@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "target": "es6",
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "strict": true, // enables strict type-checking
+    "esModuleInterop": true, // allows default imports from CommonJS modules
+    "moduleResolution": "node",
+    "types": ["vite/client"]
+  },
+  "include": ["./src/**/*"],
+  "exclude": [],
+  "rules": {
+    "no-unused-vars": "warn"
+  }
+}

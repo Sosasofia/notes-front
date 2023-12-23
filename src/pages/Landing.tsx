@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/app/hooks";
 
 export default function Landing() {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useAppSelector((state) => state.auth);
 
   const navigateToLogin = () => {
     navigate("/login");

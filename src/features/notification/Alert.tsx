@@ -1,6 +1,12 @@
 import { ExclamationCircleIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 
-export default function Alert({ notification }) {
+import { Notification } from "@/types";
+
+type Props = {
+  notification: Notification;
+};
+
+export default function Alert({ notification }: Props) {
   const { message, type } = notification;
 
   const styles = () => {
@@ -29,7 +35,7 @@ export default function Alert({ notification }) {
     }
   };
 
-  const toUpperCase = (str) => {
+  const toUpperCase = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
 
@@ -38,8 +44,12 @@ export default function Alert({ notification }) {
       className={`flex justify-center h-24  bg-white dark:bg-gray-700 items-center px-6 py-4 text-sm border-t-2 rounded-b shadow-sm  ${styles()}`}>
       {icon()}
       <div className="ml-3">
-        <div className="font-bold text-left text-black dark:text-gray-50">{toUpperCase(type)}!</div>
-        <div className="w-full text-gray-900 dark:text-gray-300 mt-1">{toUpperCase(message)}</div>
+        <div className="font-bold text-left text-black dark:text-gray-50">
+          {toUpperCase(type || "")}!
+        </div>
+        <div className="w-full text-gray-900 dark:text-gray-300 mt-1">
+          {toUpperCase(message || "")}
+        </div>
       </div>
     </div>
   );

@@ -1,13 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowRightOnRectangleIcon, PaperClipIcon } from "@heroicons/react/24/solid";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../features/user/authSlice";
 import ThemeSwitch from "./ThemeSwitch";
+import { useAppSelector, useAppDispatch } from "@/app/hooks";
+import { logout } from "@/features/user/authSlice";
 
 export default function Header() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   const handleDelete = () => {
     dispatch(logout());

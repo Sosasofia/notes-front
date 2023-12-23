@@ -1,22 +1,28 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { updateNote } from "./notesSlice";
+import { useAppDispatch } from "@/app/hooks";
+import { Note } from "@/types";
 
-export default function EditNoteForm({ note, toggleShow }) {
+type Props = {
+  note: Note;
+  toggleShow: () => void;
+};
+
+export default function EditNoteForm({ note, toggleShow }: Props) {
   const { title, content, id } = note;
-  const [newTitle, setTitle] = useState(title);
-  const [newContent, setContent] = useState(content);
-  const dispatch = useDispatch();
+  const [newTitle, setTitle] = useState<string>(title);
+  const [newContent, setContent] = useState<string>(content);
+  const dispatch = useAppDispatch();
 
-  const editNote = (e) => {
+  const editNote = (e: any) => {
     e.preventDefault();
 
-    const noteObject = {
+    const noteObject: Note = {
       title: newTitle,
       content: newContent,
-      createdAt: Date.now()
+      createdAt: String(Date.now())
     };
-    dispatch(updateNote(noteObject, id));
+    dispatch(updateNote(noteObject, id!));
     setTitle("");
     setContent("");
     toggleShow();
@@ -54,7 +60,6 @@ export default function EditNoteForm({ note, toggleShow }) {
           className="block w-full p-2.5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-600  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           id="content"
           placeholder="Content"
-          type="text"
           value={newContent}
           onChange={(e) => setContent(e.target.value)}
         />

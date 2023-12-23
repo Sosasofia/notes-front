@@ -1,6 +1,12 @@
+import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-export default function ProtectedRoutes({ user, children }) {
+type Props = {
+  user: any;
+  children?: React.ReactNode;
+};
+
+export default function ProtectedRoutes({ user, children }: Props) {
   if (!user) {
     return <Navigate replace to="/" />;
   }

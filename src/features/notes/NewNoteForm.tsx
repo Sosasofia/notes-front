@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { createNote } from "./notesSlice";
+import { useAppDispatch } from "@/app/hooks";
+import { Note } from "@/types";
 
-export default function NewNoteForm({ toggleShow }) {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const dispatch = useDispatch();
+export default function NewNoteForm({ toggleShow }: { toggleShow: () => void }) {
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const dispatch = useAppDispatch();
 
-  const addNewNote = (e) => {
+  const addNewNote = (e: any) => {
     e.preventDefault();
 
-    const noteObject = {
+    const noteObject: Note = {
       title,
       content
     };
@@ -51,7 +52,6 @@ export default function NewNoteForm({ toggleShow }) {
           className="block w-full p-2.5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:outline-none focus:ring-blue-600 focus:border-blue-600  dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           id="content"
           placeholder="Content"
-          type="text"
           onChange={(e) => setContent(e.target.value)}
         />
       </div>

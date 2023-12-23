@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Modal from "../../components/Modal";
 import { loginUser } from "./authSlice";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import Modal from "@/components/Modal";
 
 export default function LoginForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, isLoggedIn } = useSelector((state) => state.auth);
+  const { loading, isLoggedIn } = useAppSelector((state) => state.auth);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [show, setShow] = useState(true);
   const toggleShow = () => setShow(!show);
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: any) => {
     e.preventDefault();
 
     const credentials = {

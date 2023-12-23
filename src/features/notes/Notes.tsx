@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../components/Spinner";
 import { fetchNotes } from "./notesSlice";
 import Note from "./Note";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
 
 export default function Notes() {
-  const dispatch = useDispatch();
-  const { notes, loading } = useSelector((state) => state.notes);
+  const dispatch = useAppDispatch();
+  const { notes, loading } = useAppSelector((state) => state.notes);
 
   useEffect(() => {
     dispatch(fetchNotes());

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Routes, Route, Navigate } from "react-router-dom";
+import { RootState } from "./app/store";
 import Header from "./components/Header";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import Notes from "./features/notes/Notes";
@@ -9,8 +10,8 @@ import Home from "./pages/Home";
 import Notification from "./features/notification/Notification";
 
 function App() {
-  const theme = useSelector((state) => state.theme);
-  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const theme = useSelector((state: RootState) => state.theme);
+  const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
 
   return (
     <div className={`h-screen static ${theme.darkMode && "dark"} relative`}>

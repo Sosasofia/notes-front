@@ -1,9 +1,10 @@
 import axios from "axios";
+import { Note } from "../types";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-let token = null;
+let token: string | null = null;
 
-const setToken = (newToken) => {
+const setToken = (newToken: string) => {
   token = `bearer ${newToken}`;
 };
 
@@ -15,7 +16,7 @@ const getAll = async () => {
   return req;
 };
 
-const create = async (newNote) => {
+const create = async (newNote: Note) => {
   const config = {
     headers: { Authorization: `${token}` }
   };
@@ -23,7 +24,7 @@ const create = async (newNote) => {
   return response.data;
 };
 
-const remove = async (id) => {
+const remove = async (id: string) => {
   const config = {
     headers: { Authorization: `${token}` }
   };
@@ -32,7 +33,7 @@ const remove = async (id) => {
   return response.data;
 };
 
-const update = async (id, updatedNote) => {
+const update = async (id: string, updatedNote: Note) => {
   const config = {
     headers: { Authorization: `${token}` }
   };

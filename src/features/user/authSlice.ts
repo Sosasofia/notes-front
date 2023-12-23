@@ -1,27 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import loginService from "../../services/login";
-import userService from "../../services/user";
 import { setNotification } from "../notification/notificationSlice";
+import userService from "@/services/user";
+import loginService from "@/services/login";
+import { User, Credentials, Auth } from "@/types";
+import { AppDispatch } from "@/app/store";
 
-const user = userService.getUser();
+const user: User = userService.getUser();
 
 export const loginUser = createAsyncThunk(
   "auth/login",
-  async (credentials, { rejectWithValue, dispatch }) => {
+  async (credentials: Credentials, { rejectWithValue, dispatch }) => {
     try {
       const res = await loginService.login(credentials);
       const data = res.data;
       userService.setUser(data);
       dispatch(setNotification("Login successful", true, "success", 4));
       return data;
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
       return rejectWithValue(e.response.data);
     }
   }
 );
 
-const initialState = user
+const initialState: Auth = user
   ? { isLoggedIn: true, user, loading: false }
   : { isLoggedIn: false, user: null, loading: false };
 
@@ -34,24 +36,23 @@ const authSlice = createSlice({
       state.user = null;
     }
   },
-  extraReducers: {
-    [loginUser.fulfilled]: (state, { payload }) => {
+  extraReducers(builder) {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
       state.isLoggedIn = true;
-      state.currentUser = payload;
-    },
-    [loginUser.pending]: (state) => {
+      state.user = action.payload;
+    });
+    builder.addCase(loginUser.pending, (state) => {
       state.loading = true;
-    },
-    [loginUser.rejected]: (state, { payload }) => {
+    });
+    builder.addCase(loginUser.rejected, (state) => {
       state.loading = false;
       state.isLoggedIn = false;
-      state.error = payload.error;
-    }
+    });
   }
 });
 
-export const logout = () => (dispatch) => {
+export const logout = () => (dispatch: AppDispatch) => {
   userService.logout();
   dispatch(setNotification("Logout successful", true, "success"));
   dispatch(authSlice.actions.removeUser());

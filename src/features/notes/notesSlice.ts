@@ -2,6 +2,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import noteService from "../../services/notes";
 import userService from "../../services/user";
 import { setNotification } from "../notification/notificationSlice";
+import { Note } from "@/types";
+import { AppDispatch } from "@/app/store";
 
 const user = userService.getUser();
 
@@ -11,13 +13,13 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async (arg, { dis
     const res = await noteService.getAll();
 
     return res.data;
-  } catch (e) {
+  } catch (e: any) {
     dispatch(setNotification(`${e.response.data.error}`, true, "error"));
   }
 });
 
-export const createNote = (noteObject) => {
-  return async (dispatch) => {
+export const createNote = (noteObject: Note) => {
+  return async (dispatch: AppDispatch) => {
     try {
       if (user.username === "test") {
         const { title, content } = noteObject;
@@ -36,14 +38,14 @@ export const createNote = (noteObject) => {
         const returnedNote = await noteService.create(noteObject);
         dispatch(appendNote(returnedNote));
       }
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
   };
 };
 
-export const deleteNote = (noteObject) => {
-  return async (dispatch) => {
+export const deleteNote = (noteObject: Note) => {
+  return async (dispatch: AppDispatch) => {
     try {
       if (user.username === "test") {
         dispatch(removeNote(noteObject.id));
@@ -51,18 +53,18 @@ export const deleteNote = (noteObject) => {
         return;
       } else {
         noteService.setToken(user.token);
-        await noteService.remove(noteObject.id);
+        await noteService.remove(noteObject.id!);
         dispatch(removeNote(noteObject));
         dispatch(setNotification("Note deleted", true, "success"));
       }
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
   };
 };
 
-export const updateNote = (note, id) => {
-  return async (dispatch) => {
+export const updateNote = (note: Note, id: string) => {
+  return async (dispatch: AppDispatch) => {
     try {
       if (user.username === "test") {
         dispatch(update({ ...note, id }));
@@ -77,20 +79,29 @@ export const updateNote = (note, id) => {
         dispatch(update(updatedNote));
         dispatch(setNotification("Note updated", true, "success"));
       }
-    } catch (e) {
+    } catch (e: any) {
       dispatch(setNotification(`${e.response.data.error}`, true, "error"));
     }
   };
 };
 
+const initialState: {
+  notes: Note[];
+  loading: boolean;
+  error: string | null | undefined;
+} = {
+  notes: [],
+  loading: false,
+  error: null
+};
+
 export const notesSlice = createSlice({
   name: "notes",
-  initialState: {
-    notes: [],
-    loading: false,
-    error: null
-  },
+  initialState,
   reducers: {
+    setNotes(state, action) {
+      state.notes = action.payload;
+    },
     appendNote(state, action) {
       state.notes.push(action.payload);
     },
@@ -104,18 +115,18 @@ export const notesSlice = createSlice({
       state.notes = state.notes.filter((note) => note.id !== action.payload);
     }
   },
-  extraReducers: {
-    [fetchNotes.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchNotes.pending, (state) => {
       state.loading = true;
-    },
-    [fetchNotes.fulfilled]: (state, { payload }) => {
+    });
+    builder.addCase(fetchNotes.fulfilled, (state, { payload }) => {
       state.loading = false;
       state.notes = payload;
-    },
-    [fetchNotes.rejected]: (state, { payload }) => {
+    });
+    builder.addCase(fetchNotes.rejected, (state, action) => {
       state.loading = false;
-      state.error = payload.message;
-    }
+      state.error = action.error.message;
+    });
   }
 });
 
